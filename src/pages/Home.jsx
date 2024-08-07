@@ -19,7 +19,7 @@ function Home() {
     };
 
     try {
-      const url = "http://localhost:3000/user/adminlogin";
+      const url = "http://localhost:3000/admin/login";
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -28,12 +28,11 @@ function Home() {
         },
         body: JSON.stringify(body),
       });
-
       if (!response.ok) {
         throw new Error(`Error occured ${response.status}`);
       }
-
       const json = await response.json();
+      console.log(json);
       if (json.isadmin === true) {
         console.log("User is an admin");
         localStorage.setItem("token", json.token);

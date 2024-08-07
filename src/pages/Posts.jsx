@@ -1,8 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { AdminAuth } from "../App";
+import IndividualPost from "../components/IndividualPost";
+import "../styles/Posts.css";
 
 async function getPosts(setShow) {
-  const url = "http://localhost:3000/posts/adminposts";
+  const url = "http://localhost:3000/admin/posts";
 
   try {
     const response = await fetch(url, {
@@ -44,9 +46,19 @@ function Posts() {
   return (
     <>
       <h2>All blogposts go here</h2>
-      {allPosts.map((post) => (
-        <p>{post.title}</p>
-      ))}
+      <div className="allPosts">
+        {allPosts.map((post) => (
+          <IndividualPost
+            title={post.title}
+            text={post.text}
+            authorid={post.userId}
+            published={post.published}
+            username={post.user.username}
+            id={post.id}
+            key={post.id}
+          />
+        ))}
+      </div>
     </>
   );
 }

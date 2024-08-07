@@ -1,0 +1,10 @@
+.postContainer {
+  background-color: rgb(184, 183, 183);
+  padding: 2px;
+}
+
+.allPosts {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}

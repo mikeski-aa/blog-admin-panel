@@ -2,12 +2,16 @@ import { useState } from "react";
 
 function IndividualPost(props) {
   const [id, setId] = useState(props.id);
+  const [publish, setPublish] = useState(props.published);
 
+  let publishButton = "";
   let published = "false";
 
-  if (props.published == true) {
+  if (publish === true) {
+    publishButton = "Unpublish";
     published = "true";
   } else {
+    publishButton = "Publish";
     published = "false";
   }
 
@@ -31,12 +35,33 @@ function IndividualPost(props) {
 
       const json = await response.json();
       console.log(json);
+      window.location.href = "/posts";
     } catch (error) {
       console.log(error);
     }
   };
 
-  const publishHandler = async () => {};
+  const publishHandler = async () => {
+    const datastring = `id=${id}&state=${publish}`;
+
+    try {
+      const url = `http://localhost:3000/admin/publish?${datastring}`;
+      const response = await fetch(url, {
+        method: "PUT",
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error ${response.status}`);
+      }
+
+      const json = await response.json();
+      console.log(json);
+      setPublish(!publish);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -48,7 +73,7 @@ function IndividualPost(props) {
         <div>Post ID: {props.id}</div>
         <div>Author: {props.username}</div>
         <div className="buttons">
-          <button onClick={publishHandler}>Publish toggle</button>
+          <button onClick={publishHandler}>{publishButton}</button>
           <button onClick={edithandler}>Edit</button>
           <button onClick={deleteHandler}>Delete</button>
         </div>

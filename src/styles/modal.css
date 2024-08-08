@@ -1,8 +1,10 @@
-.editModal.false {
+.editModal.false,
+.newpostmodal.false {
   display: none;
 }
 
-.editModal.true {
+.editModal.true,
+.newpostmodal.true {
   position: absolute;
   top: 0;
   width: 100vw;
@@ -13,7 +15,8 @@
   z-index: 10;
 }
 
-.editBox {
+.editBox,
+.newpostcontainer {
   position: relative;
   top: 50%;
   left: 40%;

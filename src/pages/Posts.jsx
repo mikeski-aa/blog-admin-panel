@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AdminAuth } from "../App";
 import IndividualPost from "../components/IndividualPost";
 import "../styles/Posts.css";
+import NewPostModal from "../components/NewPostModal";
 
 async function getPosts(setShow) {
   const url = "http://localhost:3000/admin/posts";
@@ -29,6 +30,7 @@ function Posts() {
   const [allPosts, setAllPosts] = useState([]);
   const [show, setShow] = useState(false);
   const adminAuth = useContext(AdminAuth);
+  const [newPostModal, setNewPostModal] = useState(false);
   useEffect(() => {
     const posts = async () => {
       const result = await getPosts(setShow);
@@ -39,6 +41,10 @@ function Posts() {
     posts();
   }, []);
 
+  const handleAddNewPost = () => {
+    setNewPostModal(!newPostModal);
+  };
+
   if (show == false) {
     return <h2>You are not authorized to view this resource</h2>;
   }
@@ -46,7 +52,9 @@ function Posts() {
   return (
     <>
       <h2>All blogposts go here</h2>
+      <NewPostModal setNewModal={setNewPostModal} newModalShow={newPostModal} />
       <div className="allPosts">
+        <button onClick={handleAddNewPost}>Add new post</button>
         {allPosts.map((post) => (
           <IndividualPost
             title={post.title}

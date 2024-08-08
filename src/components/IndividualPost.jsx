@@ -1,5 +1,6 @@
 import { useState } from "react";
 import EditModal from "./EditModal";
+import NewPostModal from "./NewPostModal";
 
 function IndividualPost(props) {
   const [id, setId] = useState(props.id);
@@ -74,6 +75,7 @@ function IndividualPost(props) {
         setModal={setModalShow}
         id={props.id}
       />
+
       <div className="postContainer">
         <div>Title: {props.title}</div>
         <div>Text: {props.text}</div>

@@ -1,8 +1,10 @@
 import { useState } from "react";
+import EditModal from "./EditModal";
 
 function IndividualPost(props) {
   const [id, setId] = useState(props.id);
   const [publish, setPublish] = useState(props.published);
+  const [modalShow, setModalShow] = useState(false);
 
   let publishButton = "";
   let published = "false";
@@ -16,7 +18,7 @@ function IndividualPost(props) {
   }
 
   const edithandler = () => {
-    window.location.href = "/posts/edit";
+    setModalShow(!modalShow);
   };
 
   const deleteHandler = async () => {
@@ -65,6 +67,13 @@ function IndividualPost(props) {
 
   return (
     <>
+      <EditModal
+        title={props.title}
+        text={props.text}
+        modalShow={modalShow}
+        setModal={setModalShow}
+        id={props.id}
+      />
       <div className="postContainer">
         <div>Title: {props.title}</div>
         <div>Text: {props.text}</div>
